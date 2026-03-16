@@ -29,4 +29,9 @@ public interface EmployeeMapper {
      * @return
      */
     Page<Employee> page(EmployeePageQueryDTO employeePageQueryDTO);
+
+
+
+    //所以修改的操作都可以又该接口来完成
+    void update(Employee employee);
 }

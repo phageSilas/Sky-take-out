@@ -100,6 +100,11 @@ public class EmployeeServiceImpl implements EmployeeService {
        //若重复添加,则会报SQLIntegrityConstraintViolationException异常,已加入全局异常处理器
     }
 
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
     @Override
     public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
@@ -111,6 +116,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, records);
 
 
+    }
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     */
+    @Override
+    public void employeeStatus(Integer status, long id) {
+
+     Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+    employeeMapper.update(employee);
     }
 
 }

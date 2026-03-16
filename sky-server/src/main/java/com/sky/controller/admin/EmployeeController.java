@@ -97,4 +97,18 @@ public class EmployeeController {
 
     }
 
+    /**
+     *员工状态
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public Result employeeStatus(@PathVariable Integer status,long id){
+        log.info("员工状态：{} 状态id: {}",status,id);
+        employeeService.employeeStatus(status,id);
+        return Result.success();
+    }
+
+
 }
