@@ -31,7 +31,11 @@ public interface EmployeeMapper {
     Page<Employee> page(EmployeePageQueryDTO employeePageQueryDTO);
 
 
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
 
     //所以修改的操作都可以又该接口来完成
     void update(Employee employee);
+
+
 }
