@@ -92,14 +92,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         /**
          * 设置创建时间和更新时间
          */
-       employee.setCreateTime(LocalDateTime.now());
-       employee.setUpdateTime(LocalDateTime.now());
+       //employee.setCreateTime(LocalDateTime.now());
+       //employee.setUpdateTime(LocalDateTime.now());
 
        /**
          * 创建人，更新人，都是1
          */// TODO 后期会通过shiro从redis中获取
-       employee.setCreateUser(BaseContext.getCurrentId());//设置创建人
-       employee.setUpdateUser(BaseContext.getCurrentId());
+      // employee.setCreateUser(BaseContext.getCurrentId());//设置创建人
+      // employee.setUpdateUser(BaseContext.getCurrentId());
 
        employeeMapper.addNew(employee);
        //若重复添加,则会报SQLIntegrityConstraintViolationException异常,已加入全局异常处理器
@@ -162,8 +162,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
 
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());//通过线程获取当前登录用户id
+        //employee.setUpdateTime(LocalDateTime.now());
+       // employee.setUpdateUser(BaseContext.getCurrentId());//通过线程获取当前登录用户id
 
         employeeMapper.update(employee);
 
