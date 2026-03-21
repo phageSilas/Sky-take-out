@@ -13,6 +13,7 @@
         values (#{name},#{categoryId},#{price},#{image},#{description},#{status})
     </insert>
 
+
     <select id="page" resultType="com.sky.vo.DishVO">
         select d.*,c.name as categoryName from dish d left join category c on d.category_id = c.id
         <where>
@@ -28,4 +29,11 @@
         </where>
         order by d.create_time desc
         </select>
+
+    <delete id="deleteBatchByIds">
+        delete from dish where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
