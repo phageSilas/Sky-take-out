@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
@@ -13,6 +14,7 @@ import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -26,10 +28,14 @@ import java.util.Map;
 @Slf4j
 public class EmployeeController {
 
+    public static final String KEY = "SHOP_STATUS";
+
     @Autowired
     private EmployeeService employeeService;
     @Autowired
     private JwtProperties jwtProperties;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 登录
@@ -57,6 +63,13 @@ public class EmployeeController {
                 .name(employee.getName())
                 .token(token)
                 .build();
+
+        if (employee.getId() == 1) {
+            if (redisTemplate.opsForValue().get(KEY) == null) {
+                redisTemplate.opsForValue().set(KEY, 1);//以管理员登录时初始化营业状态为营业中
+                log.info("初始化营业状态为  营业中");
+            }
+        }
 
         return Result.success(employeeLoginVO);
     }

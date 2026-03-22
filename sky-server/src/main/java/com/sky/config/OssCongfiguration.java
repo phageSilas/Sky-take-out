@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Slf4j
-public class OssCongiguration {
+public class OssCongfiguration {
 
     @Bean//创建阿里云文件上传工具类对象
     @ConditionalOnMissingBean//如果容器中不存在这个类，则创建这个类对象

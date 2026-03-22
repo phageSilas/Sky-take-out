@@ -12,3 +12,12 @@ sky:
     bucket-name: sky-take-out-phage
     access-key-id: LTAI5tHDHaYaPhKBJLAwBMxZ
     access-key-secret: bNGJuk37ygDBVg3tyikvlkkIalIczM
+
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+
+
+
