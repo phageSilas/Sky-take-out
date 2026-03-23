@@ -19,5 +19,9 @@ sky:
     password:
     database: 0
 
+  wechat:
+      appid: wxdba9217578181bed
+      appsecret: 0b3GLZll2UF4qh4YdQll2zHg341GLZl6
+
 
 
