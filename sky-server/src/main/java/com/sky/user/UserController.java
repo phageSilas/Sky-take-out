@@ -10,10 +10,8 @@ import com.sky.utils.JwtUtil;
 import com.sky.vo.UserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +22,14 @@ import java.util.Map;
 
 public class UserController {
 
+    public static final String KEY = "SHOP_STATUS";
+
     @Autowired
     private UserService userService;
     @Autowired
     private JwtProperties jwtProperties;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     /**
@@ -40,24 +42,35 @@ public class UserController {
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
         log.info("微信用户登录：{}", userLoginDTO);
 
-        //调用service完成微信登录
+        //调用 service 完成微信登录
         User user = userService.wxLogin(userLoginDTO);
 
-
-        //生成jwt令牌
+        //生成 jwt 令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, user.getId());
-        String token = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(),claims);
+        String token = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
 
-        //封装VO
+        log.info("====== 生成 JWT Token ======");
+        log.info("用户 ID: {}", user.getId());
+        log.info("生成的 token: {}", token);
+        log.info("Token 长度：{}", token.length());
+        log.info("===========================");
+
+        //封装 VO
         UserLoginVO userLoginVO = UserLoginVO.builder()
                 .id(user.getId())
                 .openid(user.getOpenid())
                 .token(token)
                 .build();
 
-
+        log.info("返回给前端的 data: {}", userLoginVO);
 
         return Result.success(userLoginVO);
     }
+
+
+
+
+
+
 }

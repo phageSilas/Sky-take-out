@@ -1,6 +1,9 @@
 package com.sky.mapper;
 
+import com.sky.entity.Setmeal;
+import com.sky.vo.DishItemVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -14,4 +17,6 @@ public interface SetmealDishMapper {
      * @return
      */
     List<Long> getSetmealIdsByDishIds(List<Long> dishIds);
+
+
 }

@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new LoginFailedException(MessageConstant.LOGIN_FAILED);
         }
 
+
         //3.根据openid查询数据库，判断当前微信用户是否为新用户
         User user=userMapper.getByOpenid(openid);
 
@@ -57,12 +58,22 @@ public class UserServiceImpl implements UserService {
         Map<String, String> map= new HashMap<>();
         map.put("appid", weChatProperties.getAppid());
         map.put("secret", weChatProperties.getSecret());
+        if (weChatProperties.getAppid() == null || weChatProperties.getSecret() == null) {
+            log.error("微信小程序配置缺失");
+            throw new LoginFailedException("服务器配置错误");
+        }
         map.put("js_code", code);
         map.put("grant_type", "authorization_code");
-        String json = HttpClientUtil.doGet(WX_LOGIN, map);//创建HttpClient对象并发送请求，获取session_key和openid
-        JSONObject jsonObject = JSONObject.parseObject(json);//将json字符串转换成JSONObject对象
 
-        return jsonObject.getString("openid");//获取JSONObject对象中的openid
+        String json = HttpClientUtil.doGet(WX_LOGIN, map);//创建HttpClient对象并发送请求，获取session_key和openid
+
+
+        log.info("微信接口返回数据：{}", json);
+
+        JSONObject jsonObject = JSONObject.parseObject(json);//将json字符串转换成JSONObject对象
+        String openid = jsonObject.getString("openid");
+
+        return openid;//获取JSONObject对象中的openid
 
     }
 }

@@ -47,7 +47,7 @@ sky:
     #用户
     user-secret-key: itcast
     user-ttl: 7200000000
-    user-token-name: authorization
+    user-token-name: authentication
 
 
   alioss:
@@ -62,7 +62,7 @@ sky:
 
     wechat:
         appid: ${sky.wechat.appid}
-        appsecret: ${sky.wechat.appsecret}
+        secret: ${sky.wechat.secret}
 
 
 

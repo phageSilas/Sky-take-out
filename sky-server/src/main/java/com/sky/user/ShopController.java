@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("userShopController")//创建一个Controller，命名为userShopController,防止和adminController冲突
-@RequestMapping("/shop")
+@RequestMapping("/user/shop")
 @Slf4j
 public class ShopController {
 
@@ -27,4 +27,6 @@ public class ShopController {
         log.info("获取店铺营业状态 {}", status==1?"营业中":"打烊中");
         return Result.success(status);
     }
+
+
 }
