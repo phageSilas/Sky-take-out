@@ -2,6 +2,7 @@ package com.sky.controller.admin;
 
 
 import com.github.pagehelper.Page;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
@@ -77,5 +78,20 @@ public class DishController {
         return Result.success();
 
     }
+    /**
+     * 根据分类 id 查询菜品（用于套餐新增/修改时选择菜品）
+     *
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    public Result<List<DishVO>> list(Long categoryId) {
+        Dish dish = new Dish();
+        dish.setCategoryId(categoryId);
+        dish.setStatus(StatusConstant.ENABLE); // 只查询起售中的菜品
+        List<DishVO> list = dishService.listWithFlavor(dish);
+        return Result.success(list);
+    }
+
 
 }
