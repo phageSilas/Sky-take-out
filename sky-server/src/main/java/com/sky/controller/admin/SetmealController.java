@@ -44,7 +44,7 @@ import java.util.List;
          * @return
          */
         @GetMapping("/page")
-        public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO) {
+        public Result<PageResult> page(@RequestParam SetmealPageQueryDTO setmealPageQueryDTO) {
             PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
             return Result.success(pageResult);
         }

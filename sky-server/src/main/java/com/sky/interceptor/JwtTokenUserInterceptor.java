@@ -52,7 +52,7 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
-            BaseContext.setCurrentId(userId);
+            BaseContext.setCurrentId(userId);//通过ThreadLocal获取当前登录用户id
             
             //log.info("✅ JWT 校验成功！当前用户 id：{}", userId);
             //log.info("====== JWT 校验完成 ======");
