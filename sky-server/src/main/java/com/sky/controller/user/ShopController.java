@@ -1,4 +1,4 @@
-package com.sky.user;
+package com.sky.controller.user;
 
 import com.sky.result.Result;
 import lombok.extern.slf4j.Slf4j;

@@ -44,7 +44,8 @@ import java.util.List;
          * @return
          */
         @GetMapping("/page")
-        public Result<PageResult> page(@RequestParam SetmealPageQueryDTO setmealPageQueryDTO) {
+        public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO) {
+            log.info("分页查询：{}", setmealPageQueryDTO);
             PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
             return Result.success(pageResult);
         }
