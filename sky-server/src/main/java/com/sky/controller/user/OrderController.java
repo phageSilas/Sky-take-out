@@ -35,7 +35,7 @@ public class OrderController {
 
     /**
      * 订单支付
-     *
+     * 由于跳过了微信支付,所以websocket方法直接在orderService.payment执行
      * @param ordersPaymentDTO
      * @return
      */
@@ -93,6 +93,18 @@ public class OrderController {
     @PostMapping("/repetition/{id}")
     public Result repetition(@PathVariable Long id) {
         orderService.repetition(id);
+        return Result.success();
+    }
+
+    /**
+     * 客户催单
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/reminder/{id}")
+    public Result reminder(@PathVariable("id") Long id) {
+        orderService.reminder(id);
         return Result.success();
     }
 
