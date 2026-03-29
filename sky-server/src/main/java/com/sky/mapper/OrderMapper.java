@@ -83,4 +83,12 @@ public interface OrderMapper {
      * @return
      */
     Double selectTurnoverByDate(Map<String, Object> map);
+
+    /**
+     * 查询指定时间区间内的订单总数和有效订单数
+     *
+     * @param map
+     * @return
+     */
+    Integer countOrder(Map<String, Object> map);
 }
